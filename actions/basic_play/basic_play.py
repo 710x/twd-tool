@@ -8,7 +8,9 @@ class BasicPlay(BaseGame):
         super().__init__(boy, action_name='basic_play')
 
     def is_home(self):
-        return self.check_screen('inventory') and self.check_screen('start')
+        result = self.check_screen('inventory') and self.check_screen('start')
+        print('is_home: ' + str(result))
+        return result
 
     def empty_space(self):
         while self.check_screen('empty_space'):
@@ -17,11 +19,10 @@ class BasicPlay(BaseGame):
 
     def back_world(self):
         while not self.is_home():
-            if self.check_screen('light_world') or self.check_screen('world') or self.check_screen('back') or self.check_screen('empty_space'):
-                self.find_and_click('back')
-                self.find_and_click('light_world')
-                self.find_and_click('world')
-                self.empty_space()
+            # if self.check_screen('light_world') or self.check_screen('world') or self.check_screen('back') or self.check_screen('empty_space'):
+            self.find_and_click('back')
+            self.find_and_click('world')
+            self.empty_space()
 
     def play(self):
         if self.is_home():
@@ -30,13 +31,14 @@ class BasicPlay(BaseGame):
             self.find_and_click('start')
             sleep(5)
             self.find_and_click('start_2')
+            sleep(10)
             while self.check_screen('auto'):
                 sleep(5)
             if self.find_and_click('victory'):
                 self.find_and_click('continue')
             elif self.find_and_click('defeat'):
                 self.find_and_click('play_again')
-        if not self.is_home():
+        else:
             if self.check_screen('start_2'):
                 self.find_and_click('start_2')
                 while self.check_screen('auto'):

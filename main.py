@@ -28,11 +28,9 @@ def create_threads(lock):
     phones = []
     for addr in IP_LIST:
         adb = adbutils.AdbClient('127.0.0.1', 5037)
-        d = adb.connect(addr)
-        print(d)
-        print(adb.device_list())
-        # twds.append(pool.apply_async(create_twd, (lock, d.serial)))
-        # phones.append(pool.apply_async(create_phone, (lock, d.serial)))
+        for d in adb.device_list():
+            twds.append(pool.apply_async(create_twd, (lock, d.serial)))
+            phones.append(pool.apply_async(create_phone, (lock, d.serial)))
     pool.close()  # Done adding tasks.
     pool.join()
 
