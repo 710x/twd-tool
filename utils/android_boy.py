@@ -135,7 +135,7 @@ class AndroidBoy:
             numpy.ndarray or None: The loaded image as a NumPy array, or None if the image could not be loaded.
         """
         root = get_project_root()
-        path = fr'{root}/{filename}'
+        path = fr'{root}\{filename}'
         img = cv2.imread(path, 0)
 
         if img is not None:
